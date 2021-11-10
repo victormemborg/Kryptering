@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     
     gtkBuilder = gtk_builder_new();
     gtk_builder_add_from_file(gtkBuilder, "UI_kryptering.glade", NULL);
-    window = GTK_WIDGET(gtk_builder_get_object(gtkBuilder, "mywindow"));
+    window = GTK_WIDGET(gtk_builder_get_object(gtkBuilder, "window1"));
     
     g_object_unref(G_OBJECT(gtkBuilder));
     gtk_widget_show(window);
