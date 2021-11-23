@@ -10,8 +10,8 @@ static void text (void)
   ec_input_text = gtk_entry_get_text (GTK_ENTRY (ec_input_));
   dc_input_text = gtk_entry_get_text (GTK_ENTRY (dc_input_));
 
-  gtk_label_set_text(GTK_LABEL(ec_output), ec_input_text);
-  g_print ("Entry1 contents: %s\n", dc_input_text);
+  gtk_label_set_text(GTK_LABEL(ec_output_), ec_input_text);
+  gtk_label_set_text(GTK_LABEL(dc_output_), dc_input_text);
 
 }
 
@@ -48,9 +48,11 @@ void main(int argc, char *argv[])
     gtk_box_ = GTK_WIDGET(gtk_builder_get_object(gtkBuilder, "gtk_box"));
 
 	g_object_unref(G_OBJECT(gtkBuilder));
+  g_signal_connect(start_, "clicked", G_CALLBACK(text), NULL);
 	gtk_widget_show(window1_);
 	gtk_main();
-    g_signal_connect(start_, "clicked", G_CALLBACK (text), NULL);
 	
 	
 }
+
+
