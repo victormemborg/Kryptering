@@ -1,6 +1,20 @@
 #include <gtk/gtk.h>
 
-/*gcc -o nytest2.exe gtk_glade.c -mms-bitfields -IC:/gtk3/include/gtk-3.0 -IC:/gtk3/include/cairo -IC:/gtk3/include/pango-1.0 -IC:/gtk3/include/atk-1.0 -IC:/gtk3/include/cairo -IC:/gtk3/include/pixman-1 -IC:/gtk3/include -IC:/gtk3/include/freetype2 -IC:/gtk3/include -IC:/gtk3/include/libpng15 -IC:/gtk3/include/gdk-pixbuf-2.0 -IC:/gtk3/include/libpng15 -IC:/gtk3/include/glib-2.0 -IC:/gtk3/lib/glib-2.0/include -LC:/gtk3/lib -lgtk-3 -lgdk-3 -lgdi32 -limm32 -lshell32 -lole32 -Wl,-luuid -lpangocairo-1.0 -lpangoft2-1.0 -lfreetype -lfontconfig -lpangowin32-1.0 -lgdi32 -lpango-1.0 -lm -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 */
+GtkWidget *window1_, *overskrift_, *tekst_krypt_, *tekst_dinkrypt_, *ec_input_, *tekst_dekrypt_, *ec_output_, *dc_input_, *tekst_dindekrypt_, *dc_output_, *start_, *gtk_box_;
+
+const gchar *ec_input_text;
+const gchar *dc_input_text;
+
+static void text (void)
+{
+  ec_input_text = gtk_entry_get_text (GTK_ENTRY (ec_input_));
+  dc_input_text = gtk_entry_get_text (GTK_ENTRY (dc_input_));
+
+  gtk_label_set_text(GTK_LABEL(ec_output), ec_input_text);
+  g_print ("Entry1 contents: %s\n", dc_input_text);
+
+}
+
 void end_program(GtkWidget *wid, gpointer ptr)
 {
 	gtk_main_quit();
@@ -9,7 +23,6 @@ void end_program(GtkWidget *wid, gpointer ptr)
 void main(int argc, char *argv[])
 {
 	GtkBuilder *gtkBuilder;
-	GtkWidget *window1_, *overskrift_, *tekst_krypt_, *tekst_dinkrypt_, *ec_input_, *tekst_dekrypt_, *ec_output_, *dc_input_, *tekst_dindekrypt_, *dc_output_, *start_, *gtk_box_;
 	gtk_init(&argc, &argv);
 	GError *err = NULL;
 	
@@ -20,7 +33,7 @@ void main(int argc, char *argv[])
 		fprintf(stderr, "Fejl i indlæsning af layout-fil. Fejl: %s\n", err->message);
 		/* Evt håndtering af fejl her */
 	}
-	
+
     window1_ = GTK_WIDGET(gtk_builder_get_object(gtkBuilder, "window1"));
     overskrift_ = GTK_WIDGET(gtk_builder_get_object(gtkBuilder, "overskrift"));
     tekst_krypt_ = GTK_WIDGET(gtk_builder_get_object(gtkBuilder, "tekst_krypt"));
@@ -37,6 +50,7 @@ void main(int argc, char *argv[])
 	g_object_unref(G_OBJECT(gtkBuilder));
 	gtk_widget_show(window1_);
 	gtk_main();
+    g_signal_connect(start_, "clicked", G_CALLBACK (text), NULL);
 	
 	
 }
